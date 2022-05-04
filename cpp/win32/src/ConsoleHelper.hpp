@@ -13,26 +13,26 @@ class ConsoleHelper
 {
 public:
     template<typename... Args>
-           inline auto Out(int x, int y, const Args&... text)               { SetPos(x, y); ::printf(text...); }
+           inline auto Out(int x, int y, const Args&... format)                 { SetPos(x, y); ::printf(format...); }
 
     template<typename... Args>
-           inline auto Out(int x, int y, int colorID, const Args&... text)  { SetColor(colorID); Out(x, y, text...); }
+           inline auto Out(int x, int y, int colorID, const Args&... format)    { SetColor(colorID); Out(x, y, format...); }
 
-           inline auto SetPos(int x, int y)                                 { return ::SetConsoleCursorPosition(_hout, { (short)x, (short)y }); }
+           inline auto SetPos(int x, int y)                                     { return ::SetConsoleCursorPosition(_hout, { (short)x, (short)y }); }
 
-           inline auto SetColor(int colorID)                                { return ::SetConsoleTextAttribute(_hout, colorID); }
+           inline auto SetColor(int colorID)                                    { return ::SetConsoleTextAttribute(_hout, colorID); }
 
-    static inline auto Pause(BOOL show = TRUE)                              { return ::system(show ? "pause" : "pause >nul"); }
+    static inline auto Pause(BOOL show = TRUE)                                  { return ::system(show ? "pause" : "pause >nul"); }
 
-    static inline auto Clear()                                              { return ::system("cls"); }
+    static inline auto Clear()                                                  { return ::system("cls"); }
     
-    static inline auto SetTitle(LPCSTR title)                               { return ::SetConsoleTitleA(title); }
+    static inline auto SetTitle(LPCSTR title)                                   { return ::SetConsoleTitleA(title); }
 
-    static inline auto GetWindow()                                          { return ::GetConsoleWindow(); }
+    static inline auto GetWindow()                                              { return ::GetConsoleWindow(); }
 
-    static inline auto SetUTF8Locale()                                      { return ::setlocale(LC_ALL, "chs.utf8"); }
+    static inline auto SetUTF8Locale()                                          { return ::setlocale(LC_ALL, "chs.utf8"); }
 
-    static inline auto SetGBKLocale()                                       { return ::setlocale(LC_ALL, "chs"); }
+    static inline auto SetGBKLocale()                                           { return ::setlocale(LC_ALL, "chs"); }
     
     static        auto ResizeWindow(int cols, int lines);
 
