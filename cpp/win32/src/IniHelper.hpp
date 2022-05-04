@@ -17,7 +17,7 @@ public:
     inline auto operator()(std::string_view appName)                                            { return Helper(_iniPath, appName, nullptr); }
     inline auto operator()(std::string_view appName, std::string_view keyName)                  { return Helper(_iniPath, appName, keyName.data()); }
     template<typename BASIC>
-    inline auto operator()(std::string_view appName, std::string_view keyName, BASIC Default)   { return Helper(_iniPath, appName, keyName.data(), Default); }
+    inline auto operator()(std::string_view appName, std::string_view keyName, BASIC Default)   { return Helper(_iniPath, appName, keyName.data(), std::to_string(Default)); }
 
     inline auto DeleteAll()                                                                     { return ::CloseHandle(::CreateFileA(_iniPath.c_str(), GENERIC_ALL, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr)); }
     inline auto GetPath()                                                                       { return _iniPath.c_str(); }
@@ -49,25 +49,20 @@ private:
             _iniPath(iniPath), _appName(appName), _keyName(keyName), _Default("")
         {}
 
-        template<typename BASIC>
-        Helper(std::string_view iniPath, std::string_view appName, LPCSTR keyName, BASIC Default) :
-            _iniPath(iniPath), _appName(appName), _keyName(keyName), _Default(std::to_string(Default))
-        {}
-
-        Helper(std::string_view iniPath, std::string_view appName, LPCSTR keyName, bool Default) :
-            _iniPath(iniPath), _appName(appName), _keyName(keyName), _Default(Default ? "true" : "false")
+        Helper(std::string_view iniPath, std::string_view appName, LPCSTR keyName, std::string_view Default) :
+            _iniPath(iniPath), _appName(appName), _keyName(keyName), _Default(Default)
         {}
 
     private:
         std::string_view _iniPath;
         std::string_view _appName;
         LPCSTR _keyName;
-        std::string _Default;
+        std::string_view _Default;
 
         inline auto ReadString() -> std::string
         {
             auto buf = new char[2048]{};
-            ::GetPrivateProfileStringA(_appName.data(), _keyName, _Default.c_str(), buf, 2048, _iniPath.data());
+            ::GetPrivateProfileStringA(_appName.data(), _keyName, _Default.data(), buf, 2048, _iniPath.data());
             std::string str = buf;
             delete[] buf;
             return str;
