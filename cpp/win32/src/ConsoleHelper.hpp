@@ -13,10 +13,10 @@ class ConsoleHelper
 {
 public:
     template<typename... Args>
-           inline auto Out(int x, int y, const Args&... format)                 { SetPos(x, y); ::printf(format...); }
+           inline auto Out(int x, int y, const Args&... format)                 { SetPos(x, y); return ::printf(format...); }
 
     template<typename... Args>
-           inline auto Out(int x, int y, int colorID, const Args&... format)    { SetColor(colorID); Out(x, y, format...); }
+           inline auto Out(int x, int y, int colorID, const Args&... format)    { SetColor(colorID); return Out(x, y, format...); }
 
            inline auto SetPos(int x, int y)                                     { return ::SetConsoleCursorPosition(_hout, { (short)x, (short)y }); }
 
