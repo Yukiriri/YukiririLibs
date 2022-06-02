@@ -1,8 +1,4 @@
-﻿/*
-    ver: 1.0
-    author: Yukins
-    github: https://github.com/Yukinshell/YukinsLib
-*/
+//ver: 1.0
 #pragma once
 #include <Windows.h>
 #include <clocale>

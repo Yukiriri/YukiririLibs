@@ -1,17 +1,17 @@
-﻿
+
 #include "IniHelper.hpp"
 #include <Shlwapi.h>
 #pragma comment(lib, "shlwapi.lib")
 
 
-IniHelper::IniHelper(LPCSTR FileName)
+IniHelper::IniHelper(std::string_view iniPath)
 {
     char buf[MAX_PATH]{};
-    if (FileName[1] != ':')
+    if (iniPath[1] != ':')
     {
         ::GetCurrentDirectoryA(MAX_PATH, buf);
     }
-    ::PathAppendA(buf, FileName);
+    ::PathAppendA(buf, iniPath.data());
     _iniPath = buf;
 
     ::PathRemoveFileSpecA(buf);

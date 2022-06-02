@@ -1,4 +1,4 @@
-﻿
+
 #include <ExhibitWindow.h>
 #include <iostream>
 using std::cout;

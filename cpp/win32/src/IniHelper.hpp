@@ -1,8 +1,4 @@
-﻿/*
-    ver: 1.0
-    author: Yukins
-    github: https://github.com/Yukinshell/YukinsLib
-*/
+//ver: 1.0
 #pragma once
 #include <Windows.h>
 #include <string>
@@ -12,7 +8,7 @@
 class IniHelper
 {
 public:
-    IniHelper(LPCSTR absolutePath);
+    IniHelper(std::string_view iniPath);
 
     inline auto operator()(std::string_view appName)                                            { return Helper(_iniPath, appName, nullptr); }
     inline auto operator()(std::string_view appName, std::string_view keyName)                  { return Helper(_iniPath, appName, keyName.data()); }

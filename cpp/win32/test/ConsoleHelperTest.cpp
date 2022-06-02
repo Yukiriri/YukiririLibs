@@ -1,4 +1,4 @@
-﻿
+
 #include <ConsoleHelper.hpp>
 #include <iostream>
 using std::cout;
