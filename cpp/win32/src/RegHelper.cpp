@@ -4,7 +4,10 @@
 
 RegHelper::RegHelper(HKEY hKey, std::string_view regPath)
 {
-    ::RegOpenKeyExA(hKey, regPath.data(), 0, KEY_ALL_ACCESS, &_hKey);
+    if (::RegOpenKeyExA(hKey, regPath.data(), 0, KEY_ALL_ACCESS, &_hKey) == ERROR_FILE_NOT_FOUND)
+    {
+        ::RegCreateKeyA(hKey, regPath.data(), &_hKey);
+    }
 }
 
 RegHelper::~RegHelper()

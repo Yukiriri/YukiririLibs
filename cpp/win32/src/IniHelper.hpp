@@ -29,7 +29,7 @@ private:
         inline auto operator=(std::nullptr_t)                                                   { return WriteString(nullptr); }
 
         inline operator INT()                                                                   { return std::stoi(ReadString()); }
-        inline operator UINT()                                                                  { return (UINT)operator INT(); }
+        inline operator UINT()                                                                  { return operator INT(); }
         inline operator INT64()                                                                 { return std::stoll(ReadString()); }
         inline operator UINT64()                                                                { return std::stoull(ReadString()); }
         inline operator SHORT()                                                                 { return (SHORT)operator INT(); }
