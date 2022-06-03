@@ -41,12 +41,8 @@ private:
         inline operator double()                                                                { return std::stod(ReadString()); }
         inline operator std::string()                                                           { return ReadString(); }
 
-        Helper(std::string_view iniPath, std::string_view appName, LPCSTR keyName) :
-            _iniPath(iniPath), _appName(appName), _keyName(keyName), _Default("")
-        {}
-
-        Helper(std::string_view iniPath, std::string_view appName, LPCSTR keyName, std::string_view Default) :
-            _iniPath(iniPath), _appName(appName), _keyName(keyName), _Default(Default)
+        Helper(std::string_view iniPath, std::string_view appName, LPCSTR keyName, std::string_view Default = "")
+            : _iniPath(iniPath), _appName(appName), _keyName(keyName), _Default(Default)
         {}
 
     private:

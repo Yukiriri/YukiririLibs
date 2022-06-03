@@ -1,8 +1,9 @@
 
-#include "ExhibitWindow.h"
+#include "ExhibitWindow.hpp"
 
 
-ExhibitWindow::ExhibitWindow(HINSTANCE appInstance) : _appInstance(appInstance)
+ExhibitWindow::ExhibitWindow(HINSTANCE appInstance)
+    : _appInstance(appInstance)
 {
     ::SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 }

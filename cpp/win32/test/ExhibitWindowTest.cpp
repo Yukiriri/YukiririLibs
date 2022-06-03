@@ -1,5 +1,5 @@
 
-#include <ExhibitWindow.h>
+#include <ExhibitWindow.hpp>
 #include <iostream>
 using std::cout;
 using std::wcout;
