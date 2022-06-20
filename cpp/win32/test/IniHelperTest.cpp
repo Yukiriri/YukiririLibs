@@ -4,7 +4,7 @@
 
 int main()
 {
-    IniHelper ini(".\\IniHelperTest.ini");
+    IniHelper ini("IniHelperTest.ini");
 
     //读取例子
     int v1              =   ini("app", "int", 233);

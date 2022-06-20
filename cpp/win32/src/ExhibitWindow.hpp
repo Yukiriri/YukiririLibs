@@ -18,7 +18,7 @@ public:
         NORMAL_WINDOW =         WS_VISIBLE | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX,
         NO_MAX_WINDOW =         WS_VISIBLE | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
         MAXIMIZE_WINDOW =       WS_VISIBLE | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_MAXIMIZE,
-        BORDERLESS_WINDOW =     WS_VISIBLE | WS_POPUP | WS_MINIMIZEBOX,
+        BORDERLESS_WINDOW =     WS_VISIBLE | WS_POPUP                           | WS_MINIMIZEBOX,
     };
 
     UINT Register(LPCSTR className)                                                             { return Register(className, nullptr, nullptr, nullptr); }
@@ -35,6 +35,4 @@ private:
     HINSTANCE _appInstance = nullptr;
     HWND _hwnd = nullptr;
     std::string _className;
-
-    static LRESULT CALLBACK _MessageHandler(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 };

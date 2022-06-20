@@ -10,15 +10,25 @@ ExhibitWindow::ExhibitWindow(HINSTANCE appInstance)
 
 UINT ExhibitWindow::Register(LPCSTR className, HICON hIcon, HCURSOR hCursor, HBRUSH hBrush)
 {
+    auto internal_handler = [](HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) -> LRESULT
+    {
+        switch (message)
+        {
+        case WM_CLOSE: ::DestroyWindow(hwnd); return 0;
+        case WM_DESTROY: ::PostQuitMessage(0); return 0;
+        }
+        return ::DefWindowProcA(hwnd, message, wparam, lparam);
+    };
+
     WNDCLASSEXA wndclass{};
     wndclass.cbSize =			sizeof(wndclass);
     wndclass.style =			CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
-    wndclass.lpfnWndProc =		_MessageHandler;
+    wndclass.lpszClassName =	className;
+    wndclass.lpfnWndProc =		internal_handler;
     wndclass.hInstance =		_appInstance;
     wndclass.hIcon =			hIcon ? hIcon : ::LoadIconA(nullptr, (LPCSTR)IDI_APPLICATION);
     wndclass.hCursor =			hCursor ? hCursor : ::LoadCursorA(nullptr, (LPCSTR)IDC_ARROW);
     wndclass.hbrBackground =	hBrush ? hBrush : (HBRUSH)(COLOR_BACKGROUND + 1);
-    wndclass.lpszClassName =	className;
     _className = className;
     return ::RegisterClassExA(&wndclass);
 }
@@ -51,14 +61,4 @@ BOOL ExhibitWindow::IsExist()
         ::DispatchMessageA(&msg);
     }
     return TRUE;
-}
-
-LRESULT ExhibitWindow::_MessageHandler(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
-{
-    switch (message)
-    {
-    case WM_CLOSE: ::DestroyWindow(hwnd); return 0;
-    case WM_DESTROY: ::PostQuitMessage(0); return 0;
-    }
-    return ::DefWindowProcA(hwnd, message, wparam, lparam);
 }
